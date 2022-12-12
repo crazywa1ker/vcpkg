@@ -1,0 +1,25 @@
+From f17919d26496ff57569aca3ab124371ff04be294 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E5=B4=94=E7=BB=B4=E4=BA=AE?= <cuiweiliang@bytedance.com>
+Date: Mon, 12 Dec 2022 12:11:04 +0800
+Subject: [PATCH] fix glibc symbol
+
+---
+ cmake/build_wrapper.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/build_wrapper.sh b/cmake/build_wrapper.sh
+index 1962813..895610c 100755
+--- a/cmake/build_wrapper.sh
++++ b/cmake/build_wrapper.sh
+@@ -17,7 +17,7 @@ KEEPSYMS=$(mktemp -p /tmp keep.syms.XXXXX)
+ LIBC_SO=$("$@" --print-file-name=libc.so.6)
+ cp ${KEEPSYMS_IN} ${KEEPSYMS}
+ # get all symbols from libc and turn them into patterns
+-nm -f p -g -D ${LIBC_SO} | sed -s 's/\([^ ]*\).*/^\1$/' >> ${KEEPSYMS}
++nm -f p -g -D ${LIBC_SO} | sed -s 's/\([^ @]*\).*/^\1$/' >> ${KEEPSYMS}
+ # build the object
+ "$@"
+ # rename the symbols in the object
+-- 
+2.37.1 (Apple Git-137.1)
+

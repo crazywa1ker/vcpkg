@@ -10,6 +10,7 @@ vcpkg_from_github(
     HEAD_REF master
     PATCHES
         0001-remove-Werror.patch
+        0001-fix-glibc-symbol.patch
 )
 
 vcpkg_find_acquire_program(PYTHON3)
